@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+#  app:
+#    container_name: nodejs
+#    build: .
+#    ports:
+#      - ${PORT}:${PORT}
+#    depends_on:
+#      - db
+#    working_dir: /usr/app
+#    env_file:
+#      - ./.env
+#    volumes:
+#      - ./logs:/usr/app/logs
+#      - ./src:/usr/app/src
+#      - ./package.json:/usr/app/package.json
+#    restart: unless-stopped
+
+  db:
+    image: mongo:bionic
+    container_name: ${DB_HOST}
+    env_file:
+      - ./.env
+    volumes:
+      - ${DB_DATA}:/data/db
+    ports:
+      - ${DB_PORT}:27017
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: ${REDIS_HOST}
+    volumes:
+      - ${DB_DATA}:/data
+    ports:
+      - ${REDIS_PORT}:6379
+    restart: unless-stopped
