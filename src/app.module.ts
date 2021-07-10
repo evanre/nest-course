@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 
-import { MONGO_INITDB_DATABASE, DB_PORT } from './config';
+import { configModule } from './configure.root';
+import { TokenModule } from './token/token.module';
+
+import { MONGO_INITDB_DATABASE, DB_PORT } from './configure.root';
 
 // todo: replace localhost with ${DB_HOST} when migrated app into docker
 const mongoUrl = `mongodb://localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}`;
@@ -14,14 +16,12 @@ const mongoUrl = `mongodb://localhost:${DB_PORT}/${MONGO_INITDB_DATABASE}`;
   imports: [
     UserModule,
     AuthModule,
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true,
-    }),
+    configModule,
     MongooseModule.forRoot(mongoUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }),
+    TokenModule,
   ],
 })
 export class AppModule {}
