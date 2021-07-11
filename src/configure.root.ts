@@ -8,8 +8,8 @@ export const { JWT_SECRET, PORT } = process.env;
 export const {
   DB_HOST,
   DB_PORT,
-  MONGO_INITDB_ROOT_USERNAME,
-  MONGO_INITDB_ROOT_PASSWORD,
+  // MONGO_INITDB_ROOT_USERNAME,
+  // MONGO_INITDB_ROOT_PASSWORD,
   MONGO_INITDB_DATABASE,
 } = process.env;
 
